@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahu Kirana & Restaurant</title>
+    <link rel="stylesheet" href="Home.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+            <div class="logo">Sahu Kirana & Restaurant</div>
+            <div id="shopStatusBanner" style="font-size: 12px; font-weight: bold;">Checking status...</div>
+        </div>
+        <nav>
+            <span id="welcomeMessage">Welcome, User</span>
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        
+        <section id="adminSection" class="admin-box" style="display: none;">
+            <h3>Admin Panel (Manage Shop)</h3>
+            
+            <div style="background: #fff; padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #ccc;">
+                <h4 style="margin-top: 0; color: #333;">1. Create New Category</h4>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="newCategoryName" placeholder="e.g., Soap, Spices, Sweets">
+                    <button type="button" onclick="createNewCategory()" class="add-btn" style="background-color: #007bff;">Create Category</button>
+                </div>
+            </div>
+
+            <div style="background: #fff; padding: 15px; border-radius: 6px; border: 1px solid #ccc;">
+                <h4 style="margin-top: 0; color: #333;">2. Add New Product</h4>
+                <form id="addProductForm">
+                    <input type="text" id="prodName" placeholder="Product Name" required>
+                    <input type="number" id="prodPrice" placeholder="Price (In Rupees)" required>
+                    <input type="text" id="prodImage" placeholder="Image URL (Optional)">
+                    
+                    <select id="prodCategory">
+                        </select>
+                    
+                    <button type="submit" class="add-btn">Add Product</button>
+                </form>
+            </div>
+        </section>
+
+        <div class="search-filter-box">
+            <div style="margin-bottom: 15px;">
+                <input type="text" id="searchBar" placeholder="🔍 Search items here... (e.g., Samosa, Sugar)" oninput="filterProducts()">
+            </div>
+            <div id="categoryTabsContainer" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                </div>
+        </div>
+
+        <h2 class="title">Our Products & Items</h2>
+        <div class="products-grid" id="productsGrid">
+            </div>
+    </main>
+
+    <div id="productModal" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeModal()">×</span>
+            <h3 id="modalProdName">Product Details</h3>
+            
+            <div class="modal-address-box">
+                <strong>📍 Store Address:</strong><br>
+                Sahu Kirana & Restaurant,<br>
+                Jurey Colony, Chhindwara,<br>
+                Madhya Pradesh 480441<br><br>
+                <strong>📞 Contact Number:</strong><br>
+                +91 XXXXXXXXXX
+                
+                <a href="https://maps.google.com/?cid=3626500772359660299&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="maps-btn">
+                    🗺️ Open in Google Maps
+                </a>
+            </div>
+
+            <p class="modal-notice">
+                Notice: Online ordering is currently unavailable. This is a digital price catalog. Please visit our offline store to purchase this item.
+            </p>
+            
+            <button onclick="closeModal()" class="modal-close-btn">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 Sahu Kirana & Restaurant. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
