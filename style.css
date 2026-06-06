@@ -1,0 +1,40 @@
+body{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+main{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+header{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 220px;
+    padding-top: 10px;
+    
+}
+
+.box{
+    
+    width: 400px;
+    height: 230px;
+    background-color: #f1f1f1;
+    margin: auto;
+    border-radius: 10px;
+}
+
+#btn{
+    width: 100px;
+    height: 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right:0px;
+}
