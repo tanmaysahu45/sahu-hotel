@@ -1,27 +1,46 @@
 // ==========================================
-// 1. GLOBAL LIVE CLOUD DATABASE CONFIGURATION
+// 1. GLOBAL CONFIGURATION & INSTANT SESSION CONTROL
 // ==========================================
 const DB_URL = "https://sahu-hotel-app-default-rtdb.firebaseio.com";
 
 let currentCategory = 'All';
 let DEFAULT_CATEGORIES = ['Hotel', 'Kirana', 'Dairy', 'Snacks'];
-let cloudCategoryMap = {}; // Naya variable delete karne ke liye
+let cloudCategoryMap = {}; 
 
 const NO_IMAGE_URL = 'https://images.placeholders.dev/?width=150&height=150&text=No%20Image';
 
 let selectedAddImageBase64 = null;
 let selectedEditImageBase64 = null;
+
+// 🛑 BULLETPROOF SESSION CONTROL: Yeh check page load hote hi instantly chalega
+function checkPageSession() {
+    const isLoggedIn = localStorage.getItem('currentUser');
+    const path = window.location.pathname;
+
+    // Condition A: Agar user login nahi hai aur home.html kholne ki koshish kare toh login par phenko
+    if (path.includes('home.html') && !isLoggedIn) {
+        window.location.replace("index.html");
+    } 
+    // Condition B: Agar user already login hai aur login page par aaye toh direct home par phenko
+    else if ((path.includes('index.html') || path.endsWith('/')) && isLoggedIn) {
+        window.location.replace("home.html");
+    }
+}
+checkPageSession(); // Instant run
+
+// Logout hone par history replace karke login par bhejega
+function logout() {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('userRole');
+    window.location.replace("index.html");
+}
+
 // ==========================================
 // 2. LIVE LOGIN & REGISTER SYSTEM (GLOBAL)
 // ==========================================
 const loginForm = document.getElementById('loginForm');
 
 if (loginForm) {
-    // 🛑 NAYA FIX: Agar user pehle se login hai, toh turant Home par bhej do
-    if (localStorage.getItem('currentUser')) {
-        window.location.replace("./home.html");
-    }
-
     const usernameInput = document.getElementById('username');
     const passwordInput = document.getElementById('password');
     const errorMsg = document.getElementById('errorMessage');
@@ -55,11 +74,12 @@ if (loginForm) {
             return;
         }
 
+        // Admin Custom Access
         if (uValue === "tanmaysahu" && pValue === "boss") {
             localStorage.setItem('currentUser', 'tanmaysahu');
             localStorage.setItem('userRole', 'admin');
             alert('Welcome Back, Boss!');
-            window.location.replace("./home.html"); // 🛑 NAYA FIX: History replace
+            window.location.replace("home.html");
             return;
         }
 
@@ -78,7 +98,7 @@ if (loginForm) {
                     localStorage.setItem('currentUser', originalUsername);
                     localStorage.setItem('userRole', 'customer');
                     alert('New Account Created & Saved on Cloud Network!');
-                    window.location.replace("./home.html"); // 🛑 NAYA FIX: History replace
+                    window.location.replace("home.html");
                 });
             } 
             else {
@@ -86,7 +106,7 @@ if (loginForm) {
                     localStorage.setItem('currentUser', registeredUser.username);
                     localStorage.setItem('userRole', registeredUser.role);
                     alert('Login Successful!');
-                    window.location.replace("./home.html"); // 🛑 NAYA FIX: History replace
+                    window.location.replace("home.html");
                 } else {
                     showRedError("⚠️ Incorrect Password! Access Denied.");
                     passwordInput.classList.add('error-border');
@@ -107,15 +127,10 @@ if (loginForm) {
 }
 
 // ==========================================
-// 3. HOME DASHBOARD PROTECTION & INITIAL LOAD
+// 3. HOME DASHBOARD INITIAL LOAD
 // ==========================================
 document.addEventListener('DOMContentLoaded', function() {
     const welcomeMessage = document.getElementById('welcomeMessage');
-    
-    if (window.location.pathname.includes('home.html') && !localStorage.getItem('currentUser')) {
-        window.location.href = "./index.html";
-        return;
-    }
 
     if (welcomeMessage) {
         const currentUser = localStorage.getItem('currentUser') || 'Guest';
@@ -138,7 +153,7 @@ function loadCategories() {
     fetch(`${DB_URL}/categories.json`)
     .then(res => res.json())
     .then(data => {
-        DEFAULT_CATEGORIES = ['Hotel', 'Kirana', 'Dairy', 'Snacks']; // Default set
+        DEFAULT_CATEGORIES = ['Hotel', 'Kirana', 'Dairy', 'Snacks']; 
         cloudCategoryMap = {};
         if(data) {
             Object.keys(data).forEach(key => {
@@ -155,12 +170,6 @@ function loadCategories() {
         renderCategoryElements(); 
         filterProducts();
     });
-}
-
-function logout() {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('userRole');
-    window.location.href = "./index.html";
 }
 
 // ==========================================
@@ -486,7 +495,6 @@ function filterProducts() {
 
         const filteredList = productsList.filter(product => {
             const matchesCategory = (currentCategory === 'All' || product.category === currentCategory);
-            // Search by Name OR Category
             const matchesSearch = product.name.toLowerCase().includes(searchText) || 
                                   product.category.toLowerCase().includes(searchText);
             return matchesCategory && matchesSearch;
@@ -572,6 +580,7 @@ function closeEditModal() {
     document.getElementById('editProductModal').style.display = 'none';
 }
 
+// Submit Edit handler
 function submitProductEdit() {
     const id = document.getElementById('editProdId').value;
     const name = document.getElementById('editProdName').value.trim();
@@ -636,7 +645,7 @@ function deleteProduct(id) {
     }
 }
 
-// Global System Pipeline Hooks
+// Global Hooks Setup
 window.logout = logout;
 window.createNewCategory = createNewCategory;
 window.deleteCategory = deleteCategory;
