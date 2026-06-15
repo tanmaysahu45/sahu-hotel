@@ -1,13 +1,15 @@
+/* General Styling (Common) */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f1f4f7;
+    background-color: #f8f9fa;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    color: #333333; /* Ensures main text is always dark */
 }
+
+/* Navbar: Defaults to row for desktop */
 .navbar {
     background-color: #343a40;
     color: white;
@@ -19,71 +21,101 @@ body {
     width: 100%;
 }
 
-
-.search-filter-box{
-    margin-top: 40px;
-}
-
-
-
 .navbar .logo { font-size: 20px; font-weight: bold; white-space: nowrap; }
 .navbar nav { display: flex; align-items: center; gap: 15px; }
 #welcomeMessage { font-size: 15px; white-space: nowrap; }
 .logout-btn { background-color: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; }
+
+/* Main Container: Default settings */
 .main-container { flex: 1; padding: 30px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; }
 .title { text-align: center; color: #333; margin-bottom: 25px; }
-.admin-box { background: #e9ecef; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 2px dashed #6c757d; color: #333; }
+
+/* Admin Box: Form elements vertical defaults */
+.admin-box { background: #e9ecef; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 2px dashed #6c757d; }
 .admin-box h3 { margin-top: 0; color: #343a40; border-bottom: 2px solid #ced4da; padding-bottom: 8px; }
+
 #addProductForm { display: flex; flex-wrap: wrap; gap: 10px; }
-#addProductForm input, #addProductForm select { padding: 10px; border: 1px solid #ced4da; border-radius: 4px; flex: 1; min-width: 180px; box-sizing: border-box; font-size: 14px; color: #333; }
+#addProductForm input, #addProductForm select { padding: 10px; border: 1px solid #ced4da; border-radius: 4px; flex: 1; min-width: 180px; box-sizing: border-box; font-size: 14px; }
 .add-btn { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; }
+
+/* Search/Filter default styles */
 .search-filter-box { background: white; padding: 20px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #dee2e6; }
-.search-filter-box input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; color: #333;}
+.search-filter-box input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
 .filter-tab { padding: 8px 18px; border: 1px solid #ced4da; background: white; color: #495057; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 14px; margin-right: 5px; margin-bottom: 5px; }
 .active-tab { background: #343a40 !important; color: white !important; border-color: #343a40 !important; }
+
+/* Products Grid: Responsive defaults */
 .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-.product-card { background: white; border: 1px solid #dee2e6; border-radius: 8px; padding: 15px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; cursor: pointer; color: #333;}
+.product-card { background: white; border: 1px solid #dee2e6; border-radius: 8px; padding: 15px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; cursor: pointer;}
 .product-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 4px; background-color: #f1f3f5; }
 .product-card h4 { margin: 12px 0 4px 0; color: #212529; font-size: 16px; }
 .product-card .price { font-size: 18px; font-weight: bold; color: #28a745; margin-bottom: 5px; }
 
-/* MODAL SYSTEM (सुंदर छोटा पैक्ड बॉक्स) */
-.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 99999 !important; justify-content: center; align-items: center; }
-.modal-box { background: white; padding: 20px; border-radius: 12px; width: 85%; max-width: 360px; box-sizing: border-box; position: relative; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); border-top: 5px solid #007bff; text-align: center; color: #333; }
-.close-modal { position: absolute; top: 5px; right: 12px; font-size: 28px; font-weight: bold; color: #aaa; cursor: pointer; }
-.close-modal:hover { color: #000; }
-#modalProdName { margin: 5px 0 15px 0; color: #111; font-size: 18px; font-weight: bold; }
-.modal-address-box { text-align: left; margin: 15px 0 10px 0; background: #f1f3f5; padding: 12px; border-radius: 8px; font-size: 14px; line-height: 1.4; border: 1px solid #e2e6ea; color: #333; }
-.maps-btn { display: block; background: #007bff; color: white; text-decoration: none; padding: 10px; border-radius: 6px; font-weight: bold; font-size: 14px; text-align: center; margin-top: 10px; box-sizing: border-box; }
-.maps-btn:hover { background: #0056b3; }
-.modal-notice { color: #721c24; font-weight: bold; font-size: 12px; background: #f8d7da; padding: 10px; border-radius: 6px; border: 1px solid #f5c6cb; text-align: left; margin: 12px 0; line-height: 1.3; }
-.modal-close-btn { background: #6c757d; color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; font-size: 13px; }
+/* Modals Overlay default styles */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1000; justify-content: center; align-items: center; }
+.modal-box { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 450px; text-align: center; position: relative; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+.close-modal { position: absolute; top: 10px; right: 15px; font-size: 24px; font-weight: bold; color: #aaa; cursor: pointer; }
+.modal-box h3 { margin-top: 0; }
+.modal-address-box { text-align: left; margin: 15px 0; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #dee2e6; }
+.maps-btn { display: inline-block; background: #007bff; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; font-size: 14px; margin-top: 10px; }
+.modal-notice { color: #dc3545; font-weight: bold; font-size: 14px; margin: 15px 0; background: #f8d7da; padding: 10px; border-radius: 6px; border: 1px solid #f5c6cb; }
+.modal-close-btn { background: #6c757d; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
+
+/* Edit Modal Exclusive */
+.edit-modal-box { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; position: relative; }
+.edit-modal-box label { display: block; text-align: left; margin-top: 10px; font-weight: bold; font-size: 14px; }
+.edit-modal-box input, .edit-modal-box select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
+#editImagePreview { max-width: 100px; max-height: 100px; border-radius: 4px; margin-top: 5px;}
+
+/* Footer Default styles */
 .footer { background-color: #343a40; color: #adb5bd; text-align: center; padding: 20px; font-size: 14px; margin-top: auto; width: 100%; box-sizing: border-box; }
 
-@media (max-width: 576px) {
-    .navbar { padding: 12px 15px; }
+/* ========================================================
+   👉 👉 RESPONSIVE MEDIA QUERY for MOBILE SCREENS 👈 👈
+   ======================================================== */
+@media (max-width: 600px) {
+    /* Navbar: Stacks elements vertically */
+    .navbar { padding: 12px 15px; flex-direction: column; text-align: center; gap: 8px; }
     .navbar .logo { font-size: 16px; }
-    .navbar nav { gap: 8px; }
+    .navbar nav { flex-direction: column; gap: 5px; }
     #welcomeMessage { font-size: 12px; }
-    .logout-btn { padding: 6px 10px; font-size: 11px; }
+    .logout-btn { padding: 6px 10px; font-size: 12px; }
+
+    /* Main Container: Reduce padding */
     .main-container { padding: 15px; }
+
+    /* Admin Box: Form elements 100% width and stacked */
+    .admin-box { padding: 15px; }
     #addProductForm { flex-direction: column; }
     #addProductForm input, #addProductForm select { width: 100%; }
+
+    /* Fix Price & Unit Cluster: Stack them vertically as seen in mobile mockup image_11.png */
+    #addProductForm div[style*="display: flex; gap: 10px; width: 100%;"] {
+        flex-direction: column;
+        gap: 5px !important;
+    }
+    #prodUnit { width: 100% !important; }
+
+    /* Search/Filter Box: Tabs wrap more easily */
+    .search-filter-box { padding: 15px; }
+    .search-filter-box input { padding: 10px; font-size: 14px; }
+    .categoryTabsContainer { gap: 5px; }
+    .filter-tab { padding: 6px 14px; font-size: 12px; }
+
+    /* Products Grid: Adjust to show fewer columns (e.g., 2 columns) for better size */
     .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .product-card { padding: 10px; }
     .product-card h4 { font-size: 14px; }
-    .modal-overlay { padding: 10px; }
-}
+    .product-card .price { font-size: 16px; }
 
-/* =======================================================
-   👉 ADMIN PANEL EXCLUSIVE CSS (Naye Features)
-   ======================================================= */
-.image-preview-container { margin: 10px 0; text-align: center; }
-#imagePreview { max-width: 150px; max-height: 150px; border-radius: 4px; display: none; border: 1px solid #ccc; }
-#editImagePreview { max-width: 100px; max-height: 100px; border-radius: 4px; margin-bottom: 10px; }
-.admin-action-btns { display: flex; gap: 5px; margin-top: 5px; }
-.edit-btn { background: #ffc107 !important; color: #333 !important; border: none; padding: 5px; cursor: pointer; width: 50%; border-radius: 4px; font-weight: bold; font-size: 14px;}
-.edit-modal-box { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; position: relative; color: #333 !important; text-align: left; }
-.edit-modal-box h3 { color: #333; margin-bottom: 15px; font-size: 18px; font-weight: bold; }
-.edit-modal-box label { color: #555; font-size: 14px; font-weight: 500; display: block; margin-top: 5px; }
-.edit-modal-box input, .edit-modal-box select { width: 100% !important; padding: 8px !important; margin-bottom: 10px !important; border: 1px solid #ccc !important; border-radius: 4px !important; box-sizing: border-box !important; font-size: 14px !important; color: #333 !important; background: #fff !important; }
+    /* Modals Overlay default styles for mobile */
+    .modal-box, .edit-modal-box { width: 95%; padding: 15px; }
+    .modal-address-box { padding: 10px; font-size: 13px; }
+    
+    /* Edit Modal: fixing cluttered mobile layout cluster image_11.png */
+    .edit-modal-box div[style*="display: flex; gap: 10px;"] {
+        flex-direction: column;
+        gap: 5px !important;
+    }
+    #editProdUnit { width: 100% !important; }
+}
