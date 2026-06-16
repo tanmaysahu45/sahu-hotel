@@ -270,6 +270,7 @@ function createNewCategory() {
     });
 }
 
+// Delete category handler
 function deleteCategory() {
     const select = document.getElementById('deleteCategorySelect');
     if (!select) return;
@@ -300,8 +301,6 @@ function selectCategory(categoryName) {
 // ==========================================
 // 5. IMAGE SELECTION, AUTOMATIC COMPRESSION & LIVE PREVIEW LOGIC
 // ==========================================
-
-// 🚀 Naya feature: Badi photo ko automatic compress karne ka function
 function compressAndGetBase64(file, maxWidth = 800, quality = 0.7) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -314,7 +313,6 @@ function compressAndGetBase64(file, maxWidth = 800, quality = 0.7) {
                 let width = img.width;
                 let height = img.height;
 
-                // Agar image size bohot badi hai toh dimensions thode chhote karo
                 if (width > maxWidth) {
                     height = Math.round((height * maxWidth) / width);
                     width = maxWidth;
@@ -326,7 +324,6 @@ function compressAndGetBase64(file, maxWidth = 800, quality = 0.7) {
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height);
 
-                // quality = 0.7 ka matlab 70% compression, jisse size 1MB se bohot kam (kb me) ho jayega
                 const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
                 resolve(compressedBase64);
             };
@@ -379,7 +376,6 @@ function setupImageUploadListeners() {
             if (file) {
                 if(addFileText) addFileText.innerText = "Processing & Compressing...";
                 try {
-                    // Ab alert nahi aayega, direct photo chhoti ho jayegi!
                     selectedAddImageBase64 = await compressAndGetBase64(file, 800, 0.7);
                     addPreviewImg.src = selectedAddImageBase64;
                     addPreviewImg.style.display = 'block';
@@ -414,7 +410,6 @@ function setupImageUploadListeners() {
             if (file) {
                 if(editFileText) editFileText.innerText = "Processing & Compressing...";
                 try {
-                    // Edit modal me bhi automatic compression
                     selectedEditImageBase64 = await compressAndGetBase64(file, 800, 0.7);
                     editPreviewImg.src = selectedEditImageBase64; 
                     if(editUrlInput) editUrlInput.value = ''; 
@@ -429,7 +424,6 @@ function setupImageUploadListeners() {
         });
     }
 }
-
 
 // ==========================================
 // 6. LIVE GLOBAL PRODUCT ADD SYSTEM
@@ -491,7 +485,7 @@ if (addProductForm) {
 }
 
 // ==========================================
-// 7. RENDER LIVE ITEMS FROM CLOUD
+// 7. RENDER LIVE ITEMS FROM CLOUD (CLEAN & PROFESSIONAL)
 // ==========================================
 function filterProducts() {
     const productsGrid = document.getElementById('productsGrid');
@@ -499,12 +493,18 @@ function filterProducts() {
 
     const searchBar = document.getElementById('searchBar');
     const searchText = searchBar ? searchBar.value.toLowerCase().trim() : '';
-    productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#6c757d;">Loading live items...</p>';
+    
+    productsGrid.innerHTML = `
+        <div class="spinner-container">
+            <div class="loading-spinner"></div>
+            <p class="spinner-text">Loading live items, please wait...</p>
+        </div>
+    `;
 
     fetch(`${DB_URL}/products.json`)
     .then(res => res.json())
     .then(data => {
-        productsGrid.innerHTML = '';
+        productsGrid.innerHTML = ''; 
 
         if (!data) {
             productsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#999;">No products found.</p>';
@@ -571,6 +571,7 @@ function openProductModal(name, price) {
     document.getElementById('productModal').style.display = 'flex';
 }
 
+// Close normal modal
 function closeModal() {
     document.getElementById('productModal').style.display = 'none';
 }
@@ -602,7 +603,6 @@ function closeEditModal() {
     document.getElementById('editProductModal').style.display = 'none';
 }
 
-// Submit Edit handler
 function submitProductEdit() {
     const id = document.getElementById('editProdId').value;
     const name = document.getElementById('editProdName').value.trim();
@@ -679,3 +679,13 @@ window.deleteProduct = deleteProduct;
 window.openEditModal = openEditModal;
 window.closeEditModal = closeEditModal;
 window.submitProductEdit = submitProductEdit;
+
+// =======================================================
+// 🔥 ADDED: INITIAL FULL-SCREEN PAGE LOADER AUTO-DISMISS
+// =======================================================
+window.addEventListener('load', function() {
+    const pageLoader = document.getElementById('pageLoader');
+    if (pageLoader) {
+        pageLoader.style.display = 'none';
+    }
+});

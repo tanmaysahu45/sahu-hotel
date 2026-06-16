@@ -309,6 +309,37 @@ footer {
     font-size: 1.4rem;
 }
 
+/* ==========================================
+   LIVE APP LOADING SPINNER (SAHU HOTEL THEME)
+   ========================================== */
+.spinner-container {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #28a745; /* Sahu Hotel Green Color */
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    animation: spin-loader 1s linear infinite;
+    margin: 0 auto 15px auto;
+}
+
+.spinner-text {
+    color: #555555;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+@keyframes spin-loader {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .menu-toggle { display: block; }
@@ -390,4 +421,43 @@ footer {
     font-size: 14px !important;
     color: #333 !important;
     background: #fff !important;
+}
+
+/* =======================================================
+   🔥 ADDED: INITIAL FULL-SCREEN PAGE LOADER SCREEN OVERLAY
+   ======================================================= */
+.page-loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1f242d; /* Matches the global dark theme */
+    z-index: 999999 !important; /* Covers form completely during handshake */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-loader-spinner {
+    border: 5px solid #323946;
+    border-top: 5px solid #0ef; /* Theme Cyan Spinner Line */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin-page-loader 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+.page-loader-text {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+}
+
+@keyframes spin-page-loader {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
