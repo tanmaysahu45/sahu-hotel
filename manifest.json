@@ -3,8 +3,8 @@
   "name": "Sahu Kirana & Restaurant",
   "icons": [
     {
-      "src": "4c788179-bf9a-4776-8165-35933ee9efd5.jpg",
-      "type": "image/jpeg",
+      "src": "4c788179-bf9a-4776-8165-35933ee9efd5 (1) (1).png",
+      "type": "image/png",
       "sizes": "512x512"
     }
   ],
@@ -14,3 +14,5 @@
   "theme_color": "#007bff",
   "orientation": "portrait"
 }
+
+
