@@ -16,100 +16,25 @@
         /* =========================================
            🔥 CUSTOM SELECT DROPDOWN ARCHITECTURE
         ========================================= */
-        .custom-dropdown-container {
-            position: relative;
-            width: 100%;
-        }
-        .custom-dropdown-selected {
-            padding: 12px 16px;
-            border: 2px solid #2c3341;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #fff;
-            background: #2c3341;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-            transition: 0.2s;
-        }
-        .custom-dropdown-selected:after {
-            content: "▼";
-            font-size: 10px;
-            color: #0ef;
-        }
-        .custom-dropdown-selected.active {
-            border-color: #0ef;
-        }
-        .custom-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: #2c3341;
-            border: 1px solid rgba(0, 238, 255, 0.2);
-            border-radius: 8px;
-            margin-top: 5px;
-            max-height: 250px;
-            overflow-y: auto;
-            z-index: 999;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        .custom-dropdown-menu.show {
-            display: block;
-        }
-        .custom-dropdown-option {
-            padding: 10px 16px;
-            font-size: 14px;
-            color: #fff;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.2s;
-        }
-        .custom-dropdown-option:hover {
-            background: #1f242d;
-        }
-        .opt-create-trigger {
-            color: #0ef !important;
-            font-weight: 700;
-            border-bottom: 1px dashed rgba(0, 238, 255, 0.2);
-            background: rgba(0, 238, 255, 0.05);
-        }
-        .opt-cut-btn {
-            color: #ff4d4d;
-            font-weight: bold;
-            font-size: 16px;
-            padding: 2px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .opt-cut-btn:hover {
-            background: #ff4d4d;
-            color: #fff;
-        }
-        .inline-create-wrapper {
-            display: flex;
-            gap: 8px;
-            background: #1f242d;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #0ef;
-            margin-top: 8px;
-        }
-        .inline-submit-btn, .inline-cancel-btn {
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-        }
+        .custom-dropdown-container { position: relative; width: 100%; }
+        .custom-dropdown-selected { padding: 12px 16px; border: 2px solid #2c3341; border-radius: 8px; font-size: 14px; color: #fff; background: #2c3341; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: 0.2s; }
+        .custom-dropdown-selected:after { content: "▼"; font-size: 10px; color: #0ef; }
+        .custom-dropdown-selected.active { border-color: #0ef; }
+        .custom-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #2c3341; border: 1px solid rgba(0, 238, 255, 0.2); border-radius: 8px; margin-top: 5px; max-height: 250px; overflow-y: auto; z-index: 999; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .custom-dropdown-menu.show { display: block; }
+        .custom-dropdown-option { padding: 10px 16px; font-size: 14px; color: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+        .custom-dropdown-option:hover { background: #1f242d; }
+        .opt-create-trigger { color: #0ef !important; font-weight: 700; border-bottom: 1px dashed rgba(0, 238, 255, 0.2); background: rgba(0, 238, 255, 0.05); }
+        .opt-cut-btn { color: #ff4d4d; font-weight: bold; font-size: 16px; padding: 2px 8px; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+        .opt-cut-btn:hover { background: #ff4d4d; color: #fff; }
+        .inline-create-wrapper { display: flex; gap: 8px; background: #1f242d; padding: 10px; border-radius: 8px; border: 1px solid #0ef; margin-top: 8px; }
+        .inline-submit-btn, .inline-cancel-btn { padding: 6px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; }
         .inline-submit-btn { background: #0ef; color: #1f242d; font-size: 12px; }
         .inline-cancel-btn { background: rgba(255,255,255,0.1); color: #fff; font-size: 16px; padding: 6px 10px; }
+        
+        /* Drawer maps button styling */
+        .drawer-maps-btn { display: inline-block; background: #0ef; color: #1f242d; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px; margin-top: 8px; transition: 0.2s; }
+        .drawer-maps-btn:hover { background: #05ccdf; }
     </style>
 </head>
 <body>
@@ -120,35 +45,57 @@
             <div id="shopStatusBanner" class="status-banner">Checking status...</div>
         </div>
         <div class="nav-right">
-            <span id="welcomeMessage" class="hide-on-mobile">Welcome, User</span>
-            <button onclick="logout()" class="logout-btn">Logout</button>
+            <div class="three-line-toggle" onclick="toggleSideMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </header>
 
+    <div id="sideMenuDrawer" class="side-drawer">
+        <div class="drawer-header">
+            <h3 id="welcomeMessage">Welcome, User</h3>
+            <span class="drawer-close" onclick="toggleSideMenu()">×</span>
+        </div>
+        <div class="drawer-body">
+            <div class="info-card-block">
+                <h4>📍 Store Information</h4>
+                <p><strong>Name:</strong> Sahu Hotel</p>
+                <p><strong>Address:</strong> Jhurre Colony, Chhindwara, Madhya Pradesh 480441</p>
+                <a href="https://maps.app.goo.gl/MMSYvsiXWTqtz2bp6" target="_blank" class="drawer-maps-btn">🗺️ Open in Google Maps</a>
+            </div>
+            
+            <div class="info-card-block">
+                <h4>📞 Quick Contact</h4>
+                <a href="tel:+918319332387" class="drawer-call-link">
+                    <span>📱 Call Owner:</span> +91 8319332387
+                </a>
+            </div>
+        </div>
+        <div class="drawer-footer">
+            <button onclick="logout()" class="drawer-logout-btn">Logout from Account</button>
+        </div>
+    </div>
+    <div id="drawerOverlay" class="drawer-overlay-backdrop" onclick="toggleSideMenu()"></div>
+
     <main class="main-container">
-        
         <div id="adminSection" class="admin-box" style="display: none;">
             <h3>Admin Panel — Add Product</h3>
             
             <form id="addProductForm">
-                
                 <div class="systematic-row-2col">
                     <div class="form-group-block">
                         <label>Product Title Name:</label>
                         <input type="text" id="prodName" placeholder="Enter Item Name" required>
                     </div>
-                    
                     <div class="form-group-block">
                         <label>Category Group:</label>
-                        
                         <div class="custom-dropdown-container" id="customCategoryDropdown">
                             <div class="custom-dropdown-selected" id="dropdownSelectedValue" onclick="toggleCustomDropdown()">-- Choose Category --</div>
-                            <div class="custom-dropdown-menu" id="dropdownMenuOptions">
-                                </div>
+                            <div class="custom-dropdown-menu" id="dropdownMenuOptions"></div>
                         </div>
-                        
                         <input type="hidden" id="prodCategory" required>
-                        
                         <div id="inlineCreateCategoryWrapper" class="inline-create-wrapper" style="display: none;">
                             <input type="text" id="newCategoryName" placeholder="Enter new category title">
                             <button type="button" onclick="submitInlineCategory()" class="inline-submit-btn">Add</button>
@@ -179,7 +126,7 @@
                 </div>
 
                 <div class="form-group-block">
-                    <label class="optional-label">Wholesale Price (Optional — Only visible to Boss):</label>
+                    <label class="optional-label">Wholesale Price (Optional — Only visible to Owner):</label>
                     <input type="number" id="prodWholesalePrice" placeholder="Enter Wholesale Rate if applicable">
                 </div>
                 
@@ -226,19 +173,21 @@
             <div class="modal-address-box">
                 <strong>📍 Store Address:</strong><br>
                 Sahu Kirana & Restaurant,<br>
-                Jurey Colony, Chhindwara,<br>
+                Jhurre Colony, Chhindwara,<br>
                 Madhya Pradesh 480441<br><br>
-                <strong>📞 Contact Number:</strong><br>
-                +91 8319332387
                 
-                <a href="https://maps.app.goo.gl/MMSYvsiXWTqtz2bp6" target="_blank" class="maps-btn">
-                    🗺️ Open in Google Maps
+                <strong>📞 Contact Number:</strong><br>
+                <a href="tel:+918319332387" style="color: #0ef; text-decoration: none; font-weight: bold; font-size: 15px;">+91 8319332387</a>
+                
+                <a href="https://maps.app.goo.gl/MMSYvsiXWTqtz2bp6" target="_blank" class="maps-btn">🗺️ Open in Google Maps</a>
+            </div>
+            
+            <div class="modal-notice">
+                <p style="margin-bottom: 8px;">Notice: Online ordering is currently unavailable. This is a digital price catalog. Please visit our offline store to purchase this item.</p>
+                <a href="tel:+918319332387" style="display: inline-block; color: #ff4d4d; font-weight: bold; text-decoration: underline; font-size: 14px;">
+                    📞 Click Here to Call Store Directly: +91 8319332387
                 </a>
             </div>
-
-            <p class="modal-notice">
-                Notice: Online ordering is currently unavailable. This is a digital price catalog. Please visit our offline store to purchase this item.
-            </p>
             
             <button onclick="closeModal()" class="modal-close-btn">Close</button>
         </div>
@@ -248,9 +197,7 @@
         <div class="edit-modal-box">
             <span class="close-modal" onclick="closeEditModal()">×</span>
             <h3>Edit Existing Item Record</h3>
-            
             <input type="hidden" id="editProdId">
-            
             <label>Product Name:</label>
             <input type="text" id="editProdName" required>
             
@@ -268,7 +215,6 @@
 
             <label class="optional-label">Wholesale Price (Optional):</label>
             <input type="number" id="editProdWholesalePrice" style="margin-bottom: 10px;">
-            
             <label>Current Photo Preview:</label><br>
             <img id="editImagePreview" src="" alt="Current Photo" style="display: block; margin-bottom: 10px;"><br>
             
@@ -276,19 +222,14 @@
                 <label class="optional-label">Change Photo (Optional):</label>
                 <input type="text" id="editProdImage" placeholder="Paste New Image URL">
                 <div style="text-align: center; font-weight: bold; color: #666; font-size: 11px; margin: 8px 0;">— OR —</div>
-                
                 <div style="text-align: center;">
-                    <label for="editProdImageFile" class="camera-btn">
-                        📷 Open Camera / Gallery
-                    </label>
+                    <label for="editProdImageFile" class="camera-btn">📷 Open Camera / Gallery</label>
                     <input type="file" id="editProdImageFile" accept="image/*" capture="environment" style="display:none;">
                     <span id="editFileChosenText" style="font-size: 12px; color: #aaa; display: block; margin-top: 5px;">No photo selected</span>
                 </div>
             </div>
-            
             <label>Category Group:</label>
             <select id="editProdCategory"></select>
-            
             <button type="button" onclick="submitProductEdit()" class="publish-submit-btn" style="background: #ffc107; color: #1f242d; margin-top: 15px;">Save Changes</button>
         </div>
     </div>
@@ -298,6 +239,11 @@
     </footer>
 
     <script>
+        function toggleSideMenu() {
+            document.getElementById('sideMenuDrawer').classList.toggle('open');
+            document.getElementById('drawerOverlay').classList.toggle('show');
+        }
+
         function toggleCustomDropdown() {
             document.getElementById('dropdownMenuOptions').classList.toggle('show');
             document.getElementById('dropdownSelectedValue').classList.toggle('active');
@@ -331,10 +277,7 @@
 
         function submitInlineCategory() {
             const inputVal = document.getElementById('newCategoryName').value.trim();
-            if(!inputVal) {
-                alert('Please enter a category name first!');
-                return;
-            }
+            if(!inputVal) { alert('Please enter a category name first!'); return; }
             if (typeof createNewCategory === 'function') {
                 createNewCategory();
                 setTimeout(() => { cancelInlineCategory(); }, 800);
